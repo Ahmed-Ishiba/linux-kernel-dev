@@ -1,0 +1,17 @@
+# Linux kernel module build artifacts
+*.o
+*.ko
+*.mod
+*.mod.c
+*.mod.o
+*.mod.dwo
+*.dwo
+*.cmd
+*.symvers
+modules.order
+Module.symvers
+.*.cmd
+
+# Kernel build metadata
+.tmp_versions/
+EOF
