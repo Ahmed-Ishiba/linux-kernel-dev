@@ -1,0 +1,78 @@
+// SPDX-License-Identifier: GPL-2.0
+#include "am335x-boneblack.dts"
+/ {
+    model = "Training beagle bone black";
+};
+
+&led2 {
+    default-state= "on";
+};
+
+&led3 {
+    default-state= "on";
+};
+
+&led5 {
+    default-state= "on";
+};
+
+&i2c2{
+    status="ok";
+    clock-frequency=<100000>;
+};
+
+&am33xx_pinmux {
+    i2c1_pins: i2c1-pins{
+        pinctrl-single,pins = <
+            AM33XX_PADCONF(AM335X_PIN_SPI0_D1, PIN_INPUT_PULLUP, MUX_MODE2)	/* spi0_d1.i2c1_sda */
+            AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_INPUT_PULLUP, MUX_MODE2)	/* spi0_cs0.i2c1_scl */
+        >;
+    };
+    uart2_pins: uart2_pins{
+        pinctrl-single,pins = <
+            AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT_PULLUP, MUX_MODE1)
+            AM33XX_PADCONF(AM335X_PIN_SPI0_D0, PIN_OUTPUT, MUX_MODE1)
+        >;
+    };
+
+
+    uart4_pins: uart4_pins{
+        pinctrl-single,pins = <
+            AM33XX_PADCONF(AM335X_PIN_GPMC_WAIT0, PIN_INPUT_PULLUP, MUX_MODE6)
+            AM33XX_PADCONF(AM335X_PIN_GPMC_WPN, PIN_OUTPUT, MUX_MODE6)
+        >;
+    };
+
+
+};
+&i2c1{
+    status="ok";
+    clock-frequency=<100000>;
+    pinctrl-names="default";
+    pinctrl-0 = <&i2c1_pins>;
+    joystick@52{
+        compatible="nintendo,nunchuck";
+        reg=<0x52>;
+        clock-frequency=<100000>;
+    };
+    adc@48{
+        compatible="hiwonder,i2c-adc";
+        reg=<0x48>;
+        clock-frequency=<100000>;
+    };
+};
+
+
+&uart2{
+    compatible = "bootlin,serial";
+    status = "okay";
+    pinctrl-names = "default";
+    pinctrl-0 = <&uart2_pins>;
+};
+
+&uart4{
+    compatible = "bootlin,serial";
+    status = "okay";
+    pinctrl-names = "default";
+    pinctrl-0 = <&uart4_pins>;
+};
